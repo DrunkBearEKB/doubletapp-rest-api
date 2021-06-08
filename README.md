@@ -1,15 +1,18 @@
 # _Doubletapp REST API_
 
 ### _Description:_
+
 A REST API developed for keeping records of pets (dogs and cats).
 It is also possible to upload the list of pets to json via the command line.
+
 ---
 
 ### _Usage:_
 
 #### _API (Web API)_
 _**`START:`**_
-Change folder to `api/` and execute `python app.py` in command line.
+Change folder to `api/` and execute `python app.py` in command line or 
+just run python `api/app.py` in the command line.
 
 _**`API_KEY:`**_
 When making requests, it checks the validity of the `API_KEY` and then, 
@@ -98,9 +101,8 @@ _**`METHODS:`**_
 
 
 _**`TESTS:`**_
-Change folder to `api/tests/` and execute `python tests.py` in command line.
-
-
+Change folder to `api/tests/`, start the api application and execute 
+`python tests.py` in command line.
 
 #### _CLI (Command line interface)_
 _**`INFO:`**_
@@ -125,9 +127,27 @@ command line.
 ---
 
 ### _Required:_
-See file `requirements.txt`
+
+See the file `requirements.txt`
 
 ---
+
+### _Commentaries:_
+
+If you pay attention, you can see that there are some problems with the 
+imports in the file api/app.py. They occur due to errors:
+
+    ImportError: cannot import the name 'cached_property' from 'werkzeug'
+    ImportError: cannot import the name '_endpoint_from_view_func' from 'flask.helpers'
+
+Therefore, some not so good measures were taken:
+
+    werkzeug.cached_property = werkzeug.utils.cached_property
+    import flask.scaffold
+    flask.helpers._endpoint_from_view_func = flask.scaffold._endpoint_from_view_func
+
+Also, if you have other additional tasks that you need to complete, write to 
+me in Telegram (`@ivanenkogrigory`). I will gladly try to make them. Thanks.
 
 ### _Author:_ 
 
