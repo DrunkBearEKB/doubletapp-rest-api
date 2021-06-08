@@ -15,7 +15,9 @@ from configparser import ConfigParser, ParsingError
 
 from models import db, PetModel, PhotoModel
 
-FILE_CONFIG = 'config.ini'
+
+FILE_CONFIG_NAME = 'config.ini'
+PATH_CONFIG_FILE = os.path.dirname(__file__) + '\\' + FILE_CONFIG_NAME
 DEFAULT_CONFIG_VALUES = '''[Settings]
 api_key = 830s9R7fo8Ew704nz03xBCf489mZ3mx8Dsf23DNo
 secure_photos = no
@@ -30,14 +32,14 @@ name = pets
 
 
 config = ConfigParser()
-if not os.path.exists(FILE_CONFIG):
-    with open(FILE_CONFIG, mode='w') as file:
+if not os.path.exists(PATH_CONFIG_FILE):
+    with open(PATH_CONFIG_FILE, mode='w') as file:
         file.write(DEFAULT_CONFIG_VALUES)
 try:
-    config.read(FILE_CONFIG)
+    config.read(PATH_CONFIG_FILE)
 except ParsingError:
     print(f'Сan not parse the config file, please check its correctness:\n'
-          f'{os.getcwd()}\\{FILE_CONFIG}')
+          f'{PATH_CONFIG_FILE}')
     sys.exit()
 
 flask_app = Flask(__name__)
@@ -167,29 +169,26 @@ class PetResource(Resource):
     @pet_namespace.expect(parser_get_pets_request)
     @check_api_key
     def get(self):
-        limit = request.args.get('limit') \
-            if request.args.get('limit') is not None else 20
         try:
+            limit = request.args.get('limit') \
+                if request.args.get('limit') is not None else 20
             limit = int(limit)
-        except ValueError:
-            abort(400)
-            return
 
-        offset = request.args.get('offset') \
-            if request.args.get('offset') is not None else 0
-        try:
+            offset = request.args.get('offset') \
+                if request.args.get('offset') is not None else 0
             offset = int(offset)
-        except ValueError:
-            abort(400)
-            return
 
-        if request.args.get('has_photos') is None:
-            has_photos = None
-        elif request.args.get('has_photos') == 'true':
-            has_photos = True
-        elif request.args.get('has_photos') == 'false':
-            has_photos = False
-        else:
+            if request.args.get('has_photos') is None:
+                has_photos = None
+            elif request.args.get('has_photos') == 'true':
+                has_photos = True
+            elif request.args.get('has_photos') == 'false':
+                has_photos = False
+            else:
+                abort(400)
+                return
+
+        except ValueError:
             abort(400)
             return
 
@@ -221,6 +220,7 @@ class PetResource(Resource):
             _type = request.json['type'].lower()
             if _type not in ['dog', 'cat']:
                 abort(400)
+                return
 
             pet = PetModel(
                 name=request.json['name'],
@@ -230,6 +230,7 @@ class PetResource(Resource):
             )
         except KeyError:
             abort(400)
+            return
 
         db.session.add(pet)
         db.session.commit()
@@ -245,6 +246,7 @@ class PetResource(Resource):
             ids = request.json
         except KeyError:
             abort(400)
+            return
 
         amount_deleted = 0
         errors = []
@@ -295,6 +297,7 @@ class PetPhotoPostResource(Resource):
             )
         except IndexError:
             abort(400)
+            return
 
         db.session.add(photo)
         db.session.commit()
@@ -320,6 +323,8 @@ class PetPhotoGetResource(Resource):
         pet = PetModel.query.get_or_404(id)
         if id_photo not in pet.photos.split(';'):
             abort(404)
+            return
+
         photo = PhotoModel.query.get_or_404(id_photo)
 
         response = make_response(photo.binary)

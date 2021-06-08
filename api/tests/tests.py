@@ -2,7 +2,6 @@ import unittest
 import configparser
 import requests
 import uuid
-import curlify
 
 FILE_CONFIG = '../config.ini'
 
