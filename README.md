@@ -1,4 +1,4 @@
-# _Doubletapp REST API_
+# _Doubletapp Pet REST API_
 
 ### _Description:_
 
