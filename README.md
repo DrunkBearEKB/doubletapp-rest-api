@@ -12,7 +12,7 @@ It is also possible to upload the list of pets to json via the command line.
 #### _API (Web API)_
 _**`START:`**_
 Change folder to `api/` and execute `python app.py` in command line or 
-just run python `api/app.py` in the command line.
+just run `python api/app.py` in the command line.
 
 _**`API_KEY:`**_
 When making requests, it checks the validity of the `API_KEY` and then, 
