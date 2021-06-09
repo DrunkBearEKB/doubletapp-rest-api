@@ -37,6 +37,7 @@ _**`METHODS:`**_
               'Accept': 'application/json',
               'X-Api-Key': '<STRING: API_KEY>'
           }
+      )    
       
       # curl -X POST "http://127.0.0.1:9090/pets/" -H "accept: application/json" -H "X-API-KEY: <STRING: API_KEY>" -H "Content-Type: application/json" -d "{ \"name\": \"<STRING: PET'S NAME>\", \"age\": <INT: PET'S AGE>, \"type\": \"<STRING: PET'S TYPE>\"}"
         
@@ -52,6 +53,7 @@ _**`METHODS:`**_
               'Accept': 'application/json',
               'X-Api-Key': '<STRING: API_KEY>'
           }
+      )    
       
       # curl -X POST "http://127.0.0.1:9090/pets/<STRING: ID_PET>/photo" -H "accept: application/json" -H "X-API-KEY: <STRING: API_KEY>" -H "Content-Type: multipart/form-data" -F "image=@<STRING: FILE_NAME>;type=<STRING: IMAGE_TYPE>"
         
@@ -69,6 +71,7 @@ _**`METHODS:`**_
               'Accept': 'application/json',
               'X-Api-Key': '<STRING: API_KEY>'
           }
+      )    
 
       # curl -X GET "http://127.0.0.1:9090/pets/?limit=<INT: LIMIT>&offset=<INT: OFFSET>&has_photos=<BOOL: HAS_PHOTOS>" -H "accept: application/json" -H "X-API-KEY: <STRING: API_KEY>"
   
@@ -81,6 +84,7 @@ _**`METHODS:`**_
               'Accept': 'application/json',
               'X-Api-Key': '<STRING: API_KEY>'
           }
+      )    
 
       # curl -X GET "http://127.0.0.1:9090/pets/<STRING: ID_PET>/photo/<STRING: ID_PHOTO>" -H "accept: application/json" -H "X-API-KEY: <STRING: API_KEY>"
      
@@ -96,6 +100,7 @@ _**`METHODS:`**_
               'Accept': 'application/json',
               'X-Api-Key': '<STRING: API_KEY>'
           }
+      )    
 
       # curl -X DELETE "http://127.0.0.1:9090/pets/" -H "accept: application/json" -H 'X-Api-Key: <STRING: API_KEY>' -d '{"ids": <LIST[STRING]: LIST_PETS_IDS>}'
 
